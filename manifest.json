@@ -1,13 +1,14 @@
 {
 "update_url": "https://clients2.google.com/service/update2/crx",
 
-  "name": "YouTube Screenshot",
-  "version": "1.4",
+  "name": "Screenshot YouTube",
+  "version": "2.0",
   "description": "Allows you to take screenshot of the video and save it instantly to your disk",
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
-      "js": ["page.js"]
+      "js": ["page.js"],
+			"run_at": "document_end"
     }
   ],
   "manifest_version": 2
