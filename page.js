@@ -27,7 +27,7 @@ screenshotButton.style.color = "white";
 screenshotButton.style.cssFloat = "left";
 screenshotButton.onclick = CaptureScreenshot;
 
-var ytpControlsRight = document.getElementsByClassName("ytp-right-controls")[0];
-if (ytpControlsRight) {
-	ytpControlsRight.prepend(screenshotButton);
+var ytpRightControls = document.getElementsByClassName("ytp-right-controls")[0];
+if (ytpRightControls) {
+	ytpRightControls.prepend(screenshotButton);
 }

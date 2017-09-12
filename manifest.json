@@ -1,13 +1,20 @@
 {
+  "manifest_version": 2,
   "name": "Screenshot YouTube",
   "version": "2.0",
-  "description": "Allows you to take screenshot of the video and save it instantly to your disk",
+
+  "description": "Adds a Screenshot video button to YouTube.",
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
       "js": ["page.js"],
 			"run_at": "document_end"
     }
-  ],
-  "manifest_version": 2
+  ]
 }
