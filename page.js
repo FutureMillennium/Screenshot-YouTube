@@ -11,7 +11,10 @@ function CaptureScreenshot() {
 	var dataImage = canvas.toDataURL('image/png');
 
 	var downloadLink = document.createElement("a");
-	downloadLink.href = dataImage;
+	downloadLink.href = URL.createObjectURL(new Blob([dataImage], {
+		type: "application/octet-stream"
+	})),
+
 	downloadLink.download = title + "-screenshot.png";
 	downloadLink.click();
 }
