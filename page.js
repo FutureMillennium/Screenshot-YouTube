@@ -8,15 +8,13 @@ function CaptureScreenshot() {
 	canvas.height = player.videoHeight;
 	canvas.getContext('2d').drawImage(player, 0, 0, canvas.width, canvas.height);
 
-	var dataImage = canvas.toDataURL('image/png');
-
 	var downloadLink = document.createElement("a");
-	downloadLink.href = URL.createObjectURL(new Blob([dataImage], {
-		type: "application/octet-stream"
-	})),
+	downloadLink.download = title + " screenshot.png";
 
-	downloadLink.download = title + "-screenshot.png";
-	downloadLink.click();
+	canvas.toBlob(function (blob) {
+		downloadLink.href = URL.createObjectURL(blob);
+		downloadLink.click();
+	}, 'image/png');
 }
 
 var screenshotButton = document.createElement("button");
