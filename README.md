@@ -7,6 +7,10 @@ Take a screenshot of any YouTube video with one click. [Get on Chrome Web Store 
 
 This extension does not contain any malicious or tracking code. No viruses. No ads. Only good software.
 
+## Status: finished and functional
+
+No updates planned at the moment.
+
 ## Found an error? Have any issues or feature requests?
 
 Please add them in the <em>Issues</em> section.
