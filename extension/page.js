@@ -19,11 +19,8 @@ function CaptureScreenshot() {
 
 var screenshotButton = document.createElement("button");
 screenshotButton.className = "screenshotButton ytp-button";
-screenshotButton.background = "none";
-screenshotButton.border = "0px";
-screenshotButton.style.width = "65px";
+screenshotButton.style.width = "auto";
 screenshotButton.innerHTML = "Screenshot";
-screenshotButton.style.color = "white";
 screenshotButton.style.cssFloat = "left";
 screenshotButton.onclick = CaptureScreenshot;
 
