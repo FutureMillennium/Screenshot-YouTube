@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
   "name": "Screenshot YouTube",
-  "version": "2.0",
+  "version": "2.01",
 
-  "description": "Adds a Screenshot video button to YouTube.",
+  "description": "Take a screenshot of any YouTube video with one click.",
   "icons": {
     "16": "icon-16.png",
     "48": "icon-48.png",

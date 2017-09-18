@@ -1,0 +1,16 @@
+# [Screenshot YouTube](https://chrome.google.com/webstore/detail/screenshot-youtube/gjoijpfmdhbjkkgnmahganhoinjjpohk) – a Chrome extension
+Take a screenshot of any YouTube video with one click. [Get on Chrome Web Store →](https://chrome.google.com/webstore/detail/screenshot-youtube/gjoijpfmdhbjkkgnmahganhoinjjpohk)
+
+[![Screenshot YouTube – screenshot](_dev/screenshot.jpg)](https://chrome.google.com/webstore/detail/screenshot-youtube/gjoijpfmdhbjkkgnmahganhoinjjpohk)
+
+**Important:** You may need to reload the video for the Screenshot button to show up. A fix is forthcoming.
+
+This extension does not contain any malicious or tracking code. No viruses. No ads. Only good software.
+
+## Found an error? Have any issues or feature requests?
+
+Please add them in the <em>Issues</em> section.
+
+## [Please consider supporting on Patreon!](https://www.patreon.com/FutureMillennium)
+
+Made by [Zdeněk Gromnica aka FutureMillennium](http://futuremillennium.com/).
