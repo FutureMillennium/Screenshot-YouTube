@@ -1,6 +1,27 @@
 
 function CaptureScreenshot() {
-	var title = document.querySelectorAll("h1.title")[0].innerHTML.trim();
+
+	var appendixTitle = "screenshot.png";
+
+	var title;
+
+	var headerEls = document.querySelectorAll("h1.title");
+
+	function SetTitle() {
+		if (headerEls.length > 0) {
+			title = headerEls[0].innerText.trim() + " " + appendixTitle;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	if (SetTitle() == false) {
+		headerEls = document.querySelectorAll("h1.watch-title-container");
+
+		if (SetTitle() == false)
+			title = appendixTitle;
+	}
 
 	var player = document.getElementsByClassName("video-stream")[0];
 	var canvas = document.createElement("canvas");
@@ -9,7 +30,7 @@ function CaptureScreenshot() {
 	canvas.getContext('2d').drawImage(player, 0, 0, canvas.width, canvas.height);
 
 	var downloadLink = document.createElement("a");
-	downloadLink.download = title + " screenshot.png";
+	downloadLink.download = title;
 
 	canvas.toBlob(function (blob) {
 		downloadLink.href = URL.createObjectURL(blob);
