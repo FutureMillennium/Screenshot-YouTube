@@ -3,8 +3,6 @@ Take a screenshot of any YouTube video with one click. [Get on Chrome Web Store 
 
 [![Screenshot YouTube – screenshot](_dev/screenshot.jpg)](https://chrome.google.com/webstore/detail/screenshot-youtube/gjoijpfmdhbjkkgnmahganhoinjjpohk)
 
-**Important:** You may need to reload the video for the Screenshot button to show up. A fix is forthcoming.
-
 This extension does not contain any malicious or tracking code. No viruses. No ads. Only good software.
 
 ## Status: finished and functional
