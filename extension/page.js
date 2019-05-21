@@ -68,32 +68,34 @@ function AddScreenshotButton() {
 		ytpRightControls.prepend(screenshotButton);
 	}
 
-	if (playbackSpeedButtons) {
-		ytpRightControls.prepend(speed3xButton);
-		ytpRightControls.prepend(speed25xButton);
-		ytpRightControls.prepend(speed2xButton);
-		ytpRightControls.prepend(speed1xButton);
+	chrome.storage.sync.get('playbackSpeedButtons', function(result) {
+		if (result.playbackSpeedButtons) {
+			ytpRightControls.prepend(speed3xButton);
+			ytpRightControls.prepend(speed25xButton);
+			ytpRightControls.prepend(speed2xButton);
+			ytpRightControls.prepend(speed1xButton);
 
-		var playbackRate = document.getElementsByTagName('video')[0].playbackRate;
-		switch (playbackRate) {
-			case 1:
-				speed1xButton.classList.add('SYTactive');
-				activePBRButton = speed1xButton;
-				break;
-			case 2:
-				speed2xButton.classList.add('SYTactive');
-				activePBRButton = speed2xButton;
-				break;
-			case 2.5:
-				speed25xButton.classList.add('SYTactive');
-				activePBRButton = speed25xButton;
-				break;
-			case 3:
-				speed3xButton.classList.add('SYTactive');
-				activePBRButton = speed3xButton;
-				break;
+			var playbackRate = document.getElementsByTagName('video')[0].playbackRate;
+			switch (playbackRate) {
+				case 1:
+					speed1xButton.classList.add('SYTactive');
+					activePBRButton = speed1xButton;
+					break;
+				case 2:
+					speed2xButton.classList.add('SYTactive');
+					activePBRButton = speed2xButton;
+					break;
+				case 2.5:
+					speed25xButton.classList.add('SYTactive');
+					activePBRButton = speed25xButton;
+					break;
+				case 3:
+					speed3xButton.classList.add('SYTactive');
+					activePBRButton = speed3xButton;
+					break;
+			}
 		}
-	}
+	});
 }
 
 var screenshotButton = document.createElement("button");
