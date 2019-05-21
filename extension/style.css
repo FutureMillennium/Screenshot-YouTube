@@ -1,0 +1,13 @@
+.SYText {
+	width: 4em !important;
+	float: left;
+	text-align: center !important;
+	border-radius: 0.5em;
+}
+.SYText:hover {
+	background: #eee;
+	color: black;
+}
+.SYText.SYTactive {
+	text-decoration: underline;
+}
