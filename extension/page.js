@@ -153,7 +153,7 @@ chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons'], function(resu
 });
 
 document.addEventListener('keydown', function(e) {
-	if (document.activeElement.contentEditable === 'true' || document.activeElement.contentEditable === 'plaintext')
+	if (document.activeElement.contentEditable === 'true' || document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.contentEditable === 'plaintext')
 		return true;
 
 	if (playbackSpeedButtons) {
