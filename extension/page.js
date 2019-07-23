@@ -73,6 +73,7 @@ function AddScreenshotButton() {
 			ytpRightControls.prepend(speed3xButton);
 			ytpRightControls.prepend(speed25xButton);
 			ytpRightControls.prepend(speed2xButton);
+			ytpRightControls.prepend(speed15xButton);
 			ytpRightControls.prepend(speed1xButton);
 
 			var playbackRate = document.getElementsByTagName('video')[0].playbackRate;
@@ -110,6 +111,16 @@ speed1xButton.className = "ytp-button SYText";
 speed1xButton.innerHTML = "1×";
 speed1xButton.onclick = function() {
 	document.getElementsByTagName('video')[0].playbackRate = 1;
+	activePBRButton.classList.remove('SYTactive');
+	this.classList.add('SYTactive');
+	activePBRButton = this;
+};
+
+var speed15xButton = document.createElement("button");
+speed15xButton.className = "ytp-button SYText";
+speed15xButton.innerHTML = "1.5×";
+speed15xButton.onclick = function() {
+	document.getElementsByTagName('video')[0].playbackRate = 1.5;
 	activePBRButton.classList.remove('SYTactive');
 	this.classList.add('SYTactive');
 	activePBRButton = this;
@@ -160,6 +171,10 @@ document.addEventListener('keydown', function(e) {
 		switch (e.key) {
 			case 'q':
 				speed1xButton.click();
+				e.preventDefault();
+				return false;
+			case 's':
+				speed15xButton.click();
 				e.preventDefault();
 				return false;
 			case 'w':

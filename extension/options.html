@@ -6,11 +6,33 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Screenshot YouTube options</title>
 <style>
+body {
+	margin: 25px;
+	font-size: 14px;
+}
 code {
 	background: #ddd;
 	padding: 5px 10px;
 	font-size: 16px;
 	border-radius: 3px;
+}
+h2 {
+	margin: 25px 0 10px;
+}
+label {
+	display: block;
+	padding: 10px;
+}
+label:hover {
+	background: #f7f7f7;
+}
+#PlaybackSpeedHelp {
+	margin: 0 0 0 45px;
+}
+#PlaybackSpeedHelp p {
+	display: inline-block;
+	margin: 0 10px 5px 0;
+	min-width: 60px;
 }
 </style>
 </head>
@@ -25,6 +47,17 @@ code {
 
 <h2>Extra features</h2>
 <p><label><input type="checkbox" id="PlaybackSpeedButtonsCheck" /> Playback rate buttons</label></p>
+
+<div id="PlaybackSpeedHelp" hidden>
+	<p>Keyboard shortcuts:</p>
+	<p><code>Q</code> 1×</p>
+	<!-- <p><code>A</code> 1.25×</p> -->
+	<p><code>S</code> 1.5×</p>
+	<!-- <p><code>D</code> 1.75×</p> -->
+	<p><code>W</code> 2×</p>
+	<p><code>E</code> 2.5×</p>
+	<p><code>R</code> 3×</p>
+</div>
 
 <script src="options.js"></script>
 </body>
