@@ -3,6 +3,7 @@
 var activePBRButton;
 var screenshotKey = false;
 var playbackSpeedButtons = false;
+var screenshotFunctionality = 0;
 
 function CaptureScreenshot() {
 
@@ -56,9 +57,18 @@ function CaptureScreenshot() {
 	var downloadLink = document.createElement("a");
 	downloadLink.download = title;
 
-	canvas.toBlob(function (blob) {
-		downloadLink.href = URL.createObjectURL(blob);
-		downloadLink.click();
+	canvas.toBlob(async function (blob) {
+		if (screenshotFunctionality == 0 || screenshotFunctionality == 2) {
+			// download
+			downloadLink.href = URL.createObjectURL(blob);
+			downloadLink.click();
+		}
+
+		if (screenshotFunctionality == 1 || screenshotFunctionality == 2) {
+			// clipboard
+			const clipboardItemInput = new ClipboardItem({ "image/png": blob });
+			await navigator.clipboard.write([clipboardItemInput]);
+		}
 	}, 'image/png');
 }
 
@@ -158,9 +168,10 @@ speed3xButton.onclick = function() {
 
 activePBRButton = speed1xButton;
 
-chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons'], function(result) {
+chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons', 'screenshotFunctionality'], function(result) {
 	screenshotKey = result.screenshotKey;
 	playbackSpeedButtons = result.playbackSpeedButtons;
+    screenshotFunctionality = result.screenshotFunctionality;
 });
 
 document.addEventListener('keydown', function(e) {

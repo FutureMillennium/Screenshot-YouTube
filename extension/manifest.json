@@ -28,6 +28,8 @@
 	"permissions": [
 		"https://www.youtube.com/*",
 		"webNavigation",
-		"storage"
+		"storage",
+		"clipboardWrite",
+		"clipboardRead"
 	]
 }
