@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
 var activePBRButton;
 var screenshotKey = false;
 var playbackSpeedButtons = false;
+var screenshotFunctionality = 0;
 
 function CaptureScreenshot() {
-
 	var appendixTitle = "screenshot.png";
 
 	var title;
@@ -20,12 +20,11 @@ function CaptureScreenshot() {
 			return false;
 		}
 	}
-	
+
 	if (SetTitle() == false) {
 		headerEls = document.querySelectorAll("h1.watch-title-container");
 
-		if (SetTitle() == false)
-			title = '';
+		if (SetTitle() == false) title = "";
 	}
 
 	var player = document.getElementsByClassName("video-stream")[0];
@@ -34,12 +33,12 @@ function CaptureScreenshot() {
 
 	title += " ";
 
-	let minutes = Math.floor(time / 60)
+	let minutes = Math.floor(time / 60);
 
-	time = Math.floor(time - (minutes * 60));
+	time = Math.floor(time - minutes * 60);
 
 	if (minutes > 60) {
-		let hours = Math.floor(minutes / 60)
+		let hours = Math.floor(minutes / 60);
 		minutes -= hours * 60;
 		title += hours + "-";
 	}
@@ -51,24 +50,37 @@ function CaptureScreenshot() {
 	var canvas = document.createElement("canvas");
 	canvas.width = player.videoWidth;
 	canvas.height = player.videoHeight;
-	canvas.getContext('2d').drawImage(player, 0, 0, canvas.width, canvas.height);
+	canvas
+		.getContext("2d")
+		.drawImage(player, 0, 0, canvas.width, canvas.height);
 
 	var downloadLink = document.createElement("a");
 	downloadLink.download = title;
 
-	canvas.toBlob(function (blob) {
-		downloadLink.href = URL.createObjectURL(blob);
-		downloadLink.click();
-	}, 'image/png');
+	canvas.toBlob(async function(blob) {
+		if (screenshotFunctionality == 0 || screenshotFunctionality == 2) {
+			// download
+			downloadLink.href = URL.createObjectURL(blob);
+			downloadLink.click();
+		}
+
+		if (screenshotFunctionality == 1 || screenshotFunctionality == 2) {
+			// clipboard
+			const clipboardItemInput = new ClipboardItem({ "image/png": blob });
+			await navigator.clipboard.write([clipboardItemInput]);
+		}
+	}, "image/png");
 }
 
 function AddScreenshotButton() {
-	var ytpRightControls = document.getElementsByClassName("ytp-right-controls")[0];
+	var ytpRightControls = document.getElementsByClassName(
+		"ytp-right-controls"
+	)[0];
 	if (ytpRightControls) {
 		ytpRightControls.prepend(screenshotButton);
 	}
 
-	chrome.storage.sync.get('playbackSpeedButtons', function(result) {
+	chrome.storage.sync.get("playbackSpeedButtons", function(result) {
 		if (result.playbackSpeedButtons) {
 			ytpRightControls.prepend(speed3xButton);
 			ytpRightControls.prepend(speed25xButton);
@@ -76,22 +88,23 @@ function AddScreenshotButton() {
 			ytpRightControls.prepend(speed15xButton);
 			ytpRightControls.prepend(speed1xButton);
 
-			var playbackRate = document.getElementsByTagName('video')[0].playbackRate;
+			var playbackRate = document.getElementsByTagName("video")[0]
+				.playbackRate;
 			switch (playbackRate) {
 				case 1:
-					speed1xButton.classList.add('SYTactive');
+					speed1xButton.classList.add("SYTactive");
 					activePBRButton = speed1xButton;
 					break;
 				case 2:
-					speed2xButton.classList.add('SYTactive');
+					speed2xButton.classList.add("SYTactive");
 					activePBRButton = speed2xButton;
 					break;
 				case 2.5:
-					speed25xButton.classList.add('SYTactive');
+					speed25xButton.classList.add("SYTactive");
 					activePBRButton = speed25xButton;
 					break;
 				case 3:
-					speed3xButton.classList.add('SYTactive');
+					speed3xButton.classList.add("SYTactive");
 					activePBRButton = speed3xButton;
 					break;
 			}
@@ -110,9 +123,9 @@ var speed1xButton = document.createElement("button");
 speed1xButton.className = "ytp-button SYText";
 speed1xButton.innerHTML = "1×";
 speed1xButton.onclick = function() {
-	document.getElementsByTagName('video')[0].playbackRate = 1;
-	activePBRButton.classList.remove('SYTactive');
-	this.classList.add('SYTactive');
+	document.getElementsByTagName("video")[0].playbackRate = 1;
+	activePBRButton.classList.remove("SYTactive");
+	this.classList.add("SYTactive");
 	activePBRButton = this;
 };
 
@@ -120,9 +133,9 @@ var speed15xButton = document.createElement("button");
 speed15xButton.className = "ytp-button SYText";
 speed15xButton.innerHTML = "1.5×";
 speed15xButton.onclick = function() {
-	document.getElementsByTagName('video')[0].playbackRate = 1.5;
-	activePBRButton.classList.remove('SYTactive');
-	this.classList.add('SYTactive');
+	document.getElementsByTagName("video")[0].playbackRate = 1.5;
+	activePBRButton.classList.remove("SYTactive");
+	this.classList.add("SYTactive");
 	activePBRButton = this;
 };
 
@@ -130,9 +143,9 @@ var speed2xButton = document.createElement("button");
 speed2xButton.className = "ytp-button SYText";
 speed2xButton.innerHTML = "2×";
 speed2xButton.onclick = function() {
-	document.getElementsByTagName('video')[0].playbackRate = 2;
-	activePBRButton.classList.remove('SYTactive');
-	this.classList.add('SYTactive');
+	document.getElementsByTagName("video")[0].playbackRate = 2;
+	activePBRButton.classList.remove("SYTactive");
+	this.classList.add("SYTactive");
 	activePBRButton = this;
 };
 
@@ -140,9 +153,9 @@ var speed25xButton = document.createElement("button");
 speed25xButton.className = "ytp-button SYText";
 speed25xButton.innerHTML = "2.5×";
 speed25xButton.onclick = function() {
-	document.getElementsByTagName('video')[0].playbackRate = 2.5;
-	activePBRButton.classList.remove('SYTactive');
-	this.classList.add('SYTactive');
+	document.getElementsByTagName("video")[0].playbackRate = 2.5;
+	activePBRButton.classList.remove("SYTactive");
+	this.classList.add("SYTactive");
 	activePBRButton = this;
 };
 
@@ -150,49 +163,58 @@ var speed3xButton = document.createElement("button");
 speed3xButton.className = "ytp-button SYText";
 speed3xButton.innerHTML = "3×";
 speed3xButton.onclick = function() {
-	document.getElementsByTagName('video')[0].playbackRate = 3;
-	activePBRButton.classList.remove('SYTactive');
-	this.classList.add('SYTactive');
+	document.getElementsByTagName("video")[0].playbackRate = 3;
+	activePBRButton.classList.remove("SYTactive");
+	this.classList.add("SYTactive");
 	activePBRButton = this;
 };
 
 activePBRButton = speed1xButton;
 
-chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons'], function(result) {
-	screenshotKey = result.screenshotKey;
-	playbackSpeedButtons = result.playbackSpeedButtons;
-});
+chrome.storage.sync.get(
+	["screenshotKey", "playbackSpeedButtons", "screenshotFunctionality"],
+	function(result) {
+		screenshotKey = result.screenshotKey;
+		playbackSpeedButtons = result.playbackSpeedButtons;
+		screenshotFunctionality = result.screenshotFunctionality;
+	}
+);
 
-document.addEventListener('keydown', function(e) {
-	if (document.activeElement.contentEditable === 'true' || document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.contentEditable === 'plaintext')
+document.addEventListener("keydown", function(e) {
+	if (
+		document.activeElement.contentEditable === "true" ||
+		document.activeElement.tagName === "INPUT" ||
+		document.activeElement.tagName === "TEXTAREA" ||
+		document.activeElement.contentEditable === "plaintext"
+	)
 		return true;
 
 	if (playbackSpeedButtons) {
 		switch (e.key) {
-			case 'q':
+			case "q":
 				speed1xButton.click();
 				e.preventDefault();
 				return false;
-			case 's':
+			case "s":
 				speed15xButton.click();
 				e.preventDefault();
 				return false;
-			case 'w':
+			case "w":
 				speed2xButton.click();
 				e.preventDefault();
 				return false;
-			case 'e':
+			case "e":
 				speed25xButton.click();
 				e.preventDefault();
 				return false;
-			case 'r':
+			case "r":
 				speed3xButton.click();
 				e.preventDefault();
 				return false;
 		}
 	}
 
-	if (screenshotKey && e.key === 'p') {
+	if (screenshotKey && e.key === "p") {
 		CaptureScreenshot();
 		e.preventDefault();
 		return false;

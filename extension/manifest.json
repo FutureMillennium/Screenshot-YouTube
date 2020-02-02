@@ -15,7 +15,7 @@
 	"background": {
 		"scripts": ["background.js"]
 	},
-	
+
 	"content_scripts": [
 		{
 			"matches": ["https://www.youtube.com/*"],
@@ -28,6 +28,8 @@
 	"permissions": [
 		"https://www.youtube.com/*",
 		"webNavigation",
-		"storage"
+		"storage",
+		"clipboardWrite",
+		"clipboardRead"
 	]
 }
