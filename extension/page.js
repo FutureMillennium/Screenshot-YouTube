@@ -58,13 +58,13 @@ function CaptureScreenshot() {
 	downloadLink.download = title;
 
 	canvas.toBlob(async function (blob) {
-		if (screenshotFunctionality == 0 || screenshotFunctionality == 2) {
+		if (screenshotFunctionality === 0 || screenshotFunctionality === 2) {
 			// download
 			downloadLink.href = URL.createObjectURL(blob);
 			downloadLink.click();
 		}
 
-		if (screenshotFunctionality == 1 || screenshotFunctionality == 2) {
+		if (screenshotFunctionality === 1 || screenshotFunctionality === 2) {
 			// clipboard
 			const clipboardItemInput = new ClipboardItem({ "image/png": blob });
 			await navigator.clipboard.write([clipboardItemInput]);
@@ -171,7 +171,10 @@ activePBRButton = speed1xButton;
 chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons', 'screenshotFunctionality'], function(result) {
 	screenshotKey = result.screenshotKey;
 	playbackSpeedButtons = result.playbackSpeedButtons;
-    screenshotFunctionality = result.screenshotFunctionality;
+	if (result.screenshotFunctionality === undefined)
+		screenshotFunctionality = 0;
+	else
+    	screenshotFunctionality = result.screenshotFunctionality;
 });
 
 document.addEventListener('keydown', function(e) {
