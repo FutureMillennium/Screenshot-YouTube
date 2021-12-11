@@ -4,10 +4,11 @@ var activePBRButton;
 var screenshotKey = false;
 var playbackSpeedButtons = false;
 var screenshotFunctionality = 0;
+var screenshotFormat = "png";
 
 function CaptureScreenshot() {
 
-	var appendixTitle = "screenshot.png";
+	var appendixTitle = "screenshot." + screenshotFormat;
 
 	var title;
 
@@ -62,22 +63,27 @@ function CaptureScreenshot() {
 		downloadLink.click();
 	}
 
-	function clipbaordBlob(blob) {
+	async function clipbaordBlob(blob) {
 		const clipboardItemInput = new ClipboardItem({ "image/png": blob });
 		await navigator.clipboard.write([clipboardItemInput]);
 	}
 
-	canvas.toBlob(async function (blob) {
-		if (screenshotFunctionality === 0 || screenshotFunctionality === 2) {
-			// download
+	//If clipbaord copy is needed generate png (clipbaord only supports png)
+	if (screenshotFunctionality === 1 || screenshotFunctionality === 2) {
+		canvas.toBlob(async function (blob) {
+			await clipbaordBlob(blob);
+			//Also downlaod it if it's needed and it's in the correct format
+			if (screenshotFunctionality === 2 && screenshotFormat === 'png') {
+				downloadBlob(blob);
+			}
+		}, 'image/png');
+	}
+	//Create and download image in the selected format if needed
+	if (screenshotFunctionality === 0 || (screenshotFunctionality === 2 && screenshotFormat !== 'png')) {
+		canvas.toBlob(async function (blob) {
 			downloadBlob(blob);
-		}
-
-		if (screenshotFunctionality === 1 || screenshotFunctionality === 2) {
-			// clipboard
-			clipbaordBlob(blob);
-		}
-	}, 'image/png');
+		}, 'image/' + screenshotFormat);
+	}
 }
 
 function AddScreenshotButton() {
@@ -176,9 +182,13 @@ speed3xButton.onclick = function() {
 
 activePBRButton = speed1xButton;
 
-chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons', 'screenshotFunctionality'], function(result) {
+chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons', 'screenshotFunctionality', 'ScreenshotFileFormat'], function(result) {
 	screenshotKey = result.screenshotKey;
 	playbackSpeedButtons = result.playbackSpeedButtons;
+	if (result.ScreenshotFileFormat === undefined)
+		screenshotFormat = 'png'
+	else
+		screenshotFormat = result.ScreenshotFileFormat
 	if (result.screenshotFunctionality === undefined)
 		screenshotFunctionality = 0;
 	else
