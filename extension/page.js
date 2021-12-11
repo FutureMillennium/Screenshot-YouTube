@@ -57,17 +57,25 @@ function CaptureScreenshot() {
 	var downloadLink = document.createElement("a");
 	downloadLink.download = title;
 
+	function downloadBlob(blob) {
+		downloadLink.href = URL.createObjectURL(blob);
+		downloadLink.click();
+	}
+
+	function clipbaordBlob(blob) {
+		const clipboardItemInput = new ClipboardItem({ "image/png": blob });
+		await navigator.clipboard.write([clipboardItemInput]);
+	}
+
 	canvas.toBlob(async function (blob) {
 		if (screenshotFunctionality === 0 || screenshotFunctionality === 2) {
 			// download
-			downloadLink.href = URL.createObjectURL(blob);
-			downloadLink.click();
+			downloadBlob(blob);
 		}
 
 		if (screenshotFunctionality === 1 || screenshotFunctionality === 2) {
 			// clipboard
-			const clipboardItemInput = new ClipboardItem({ "image/png": blob });
-			await navigator.clipboard.write([clipboardItemInput]);
+			clipbaordBlob(blob);
 		}
 	}, 'image/png');
 }
