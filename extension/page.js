@@ -11,7 +11,7 @@ function CaptureScreenshot() {
 
 	var title;
 
-	var headerEls = document.querySelectorAll("h1.title");
+	var headerEls = document.querySelectorAll("h1.title.ytd-video-primary-info-renderer");
 
 	function SetTitle() {
 		if (headerEls.length > 0) {
