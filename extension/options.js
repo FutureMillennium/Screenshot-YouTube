@@ -1,31 +1,26 @@
 'use strict';
 
-var ScreenshotFunctionalityCheck = [false, false, false];
-
-chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons', 'screenshotFunctionality'], function(result) {
+chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons', 'screenshotFunctionality', 'screenshotFileFormat'], function(result) {
 	ScreenshotKeyCheck.checked = result.screenshotKey;
 	PlaybackSpeedButtonsCheck.checked = result.playbackSpeedButtons;
 	PlaybackSpeedButtonsChange();
 
-    if (result.screenshotFunctionality == undefined) {
-        chrome.storage.sync.set({ screenshotFunctionality: 0 });
-        result.screenshotFunctionality = 0;
-    }
-    var radios = document.getElementsByName("ScreenshotFunctionalityCheck");
-    for (var i = 0, length = radios.length; i < length; i++) {
-        if (i == result.screenshotFunctionality) {
-            radios[i].checked = true;
-            break;
-        }
-    }
+	if (result.screenshotFunctionality === undefined) {
+		chrome.storage.sync.set({ screenshotFunctionality: 2 });
+		result.screenshotFunctionality = 2;
+	}
+	var radios = document.getElementsByName("ScreenshotFunctionalityCheck");
+	radios[result.screenshotFunctionality].checked = true;
+
+	ScreenshotFileFormat.value = result.screenshotFileFormat;
 });
 
 ScreenshotKeyCheck.oninput = function() {
 	chrome.storage.sync.set({'screenshotKey': this.checked});
 };
 
-var ScreenshotFunctionalitySet = function(value) {
-	chrome.storage.sync.set({ screenshotFunctionality: value });
+function ScreenshotFunctionalitySet(value) {
+	chrome.storage.sync.set({ screenshotFunctionality: parseInt(value) });
 };
 
 SFCSave.oninput = function() {
@@ -48,5 +43,5 @@ function PlaybackSpeedButtonsChange() {
 }
 
 ScreenshotFileFormat.onchange = function() {
-    chrome.storage.sync.set({'ScreenshotFileFormat': this.value});
+	chrome.storage.sync.set({'screenshotFileFormat': this.value});
 }

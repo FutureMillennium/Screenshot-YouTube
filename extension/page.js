@@ -5,10 +5,11 @@ var screenshotKey = false;
 var playbackSpeedButtons = false;
 var screenshotFunctionality = 0;
 var screenshotFormat = "png";
+var extension = 'png';
 
 function CaptureScreenshot() {
 
-	var appendixTitle = "screenshot." + screenshotFormat;
+	var appendixTitle = "screenshot." + extension;
 
 	var title;
 
@@ -58,28 +59,29 @@ function CaptureScreenshot() {
 	var downloadLink = document.createElement("a");
 	downloadLink.download = title;
 
-	function downloadBlob(blob) {
+	function DownloadBlob(blob) {
 		downloadLink.href = URL.createObjectURL(blob);
 		downloadLink.click();
 	}
 
-	async function clipbaordBlob(blob) {
+	async function ClipboardBlob(blob) {
 		const clipboardItemInput = new ClipboardItem({ "image/png": blob });
 		await navigator.clipboard.write([clipboardItemInput]);
 	}
 
-	//If clipbaord copy is needed generate png (clipbaord only supports png)
-	if (screenshotFunctionality === 1 || screenshotFunctionality === 2) {
+	// If clipboard copy is needed generate png (clipboard only supports png)
+	if (screenshotFunctionality == 1 || screenshotFunctionality == 2) {
 		canvas.toBlob(async function (blob) {
-			await clipbaordBlob(blob);
-			//Also downlaod it if it's needed and it's in the correct format
-			if (screenshotFunctionality === 2 && screenshotFormat === 'png') {
-				downloadBlob(blob);
+			await ClipboardBlob(blob);
+			// Also download it if it's needed and it's in the correct format
+			if (screenshotFunctionality == 2 && screenshotFormat === 'png') {
+				DownloadBlob(blob);
 			}
 		}, 'image/png');
 	}
-	//Create and download image in the selected format if needed
-	if (screenshotFunctionality === 0 || (screenshotFunctionality === 2 && screenshotFormat !== 'png')) {
+
+	// Create and download image in the selected format if needed
+	if (screenshotFunctionality == 0 || (screenshotFunctionality == 2 && screenshotFormat !== 'png')) {
 		canvas.toBlob(async function (blob) {
 			downloadBlob(blob);
 		}, 'image/' + screenshotFormat);
@@ -182,17 +184,26 @@ speed3xButton.onclick = function() {
 
 activePBRButton = speed1xButton;
 
-chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons', 'screenshotFunctionality', 'ScreenshotFileFormat'], function(result) {
+chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons', 'screenshotFunctionality', 'screenshotFileFormat'], function(result) {
 	screenshotKey = result.screenshotKey;
 	playbackSpeedButtons = result.playbackSpeedButtons;
-	if (result.ScreenshotFileFormat === undefined)
+	if (result.screenshotFileFormat === undefined) {
 		screenshotFormat = 'png'
-	else
-		screenshotFormat = result.ScreenshotFileFormat
-	if (result.screenshotFunctionality === undefined)
+	} else {
+		screenshotFormat = result.screenshotFileFormat
+	}
+
+	if (result.screenshotFunctionality === undefined) {
 		screenshotFunctionality = 0;
-	else
+	} else {
     	screenshotFunctionality = result.screenshotFunctionality;
+	}
+
+	if (screenshotFormat === 'jpeg') {
+		extension = 'jpg';
+	} else {
+		extension = screenshotFormat;
+	}
 });
 
 document.addEventListener('keydown', function(e) {

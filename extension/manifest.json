@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Screenshot YouTube",
-	"version": "2.3.1",
+	"version": "2.4.0",
 
 	"description": "Take a screenshot of any YouTube video with one click.",
 	"icons": {
@@ -28,7 +28,6 @@
 	"permissions": [
 		"https://www.youtube.com/*",
 		"webNavigation",
-		"storage",
-		"clipboardWrite"
+		"storage"
 	]
 }
