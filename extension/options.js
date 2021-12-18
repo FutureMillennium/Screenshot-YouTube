@@ -46,3 +46,7 @@ PlaybackSpeedButtonsCheck.oninput = function() {
 function PlaybackSpeedButtonsChange() {
 	PlaybackSpeedHelp.hidden = !PlaybackSpeedButtonsCheck.checked;
 }
+
+ScreenshotFileFormat.onchange = function() {
+    chrome.storage.sync.set({'ScreenshotFileFormat': this.value});
+}
