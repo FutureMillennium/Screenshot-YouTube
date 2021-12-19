@@ -83,7 +83,7 @@ function CaptureScreenshot() {
 	// Create and download image in the selected format if needed
 	if (screenshotFunctionality == 0 || (screenshotFunctionality == 2 && screenshotFormat !== 'png')) {
 		canvas.toBlob(async function (blob) {
-			downloadBlob(blob);
+			DownloadBlob(blob);
 		}, 'image/' + screenshotFormat);
 	}
 }
