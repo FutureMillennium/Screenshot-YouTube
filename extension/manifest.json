@@ -25,6 +25,13 @@
 		}
 	],
 
+	"web_accessible_resources": [
+		{
+			"resources": ["camera.svg"],
+			"matches": ["https://www.youtube.com/*"]
+		}
+	],
+
 	"permissions": [
 		"https://www.youtube.com/*",
 		"webNavigation",

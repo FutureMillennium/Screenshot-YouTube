@@ -6,6 +6,7 @@ var playbackSpeedButtons = false;
 var screenshotFunctionality = 0;
 var screenshotFormat = "png";
 var extension = 'png';
+var iconSvgPath = chrome.runtime.getURL('camera.svg');
 
 function CaptureScreenshot() {
 
@@ -23,7 +24,7 @@ function CaptureScreenshot() {
 			return false;
 		}
 	}
-	
+
 	if (SetTitle() == false) {
 		headerEls = document.querySelectorAll("h1.watch-title-container");
 
@@ -125,10 +126,16 @@ function AddScreenshotButton() {
 	});
 }
 
+var screenshotIcon = document.createElement("img");
+screenshotIcon.src = iconSvgPath;
+screenshotIcon.width = 32;
+screenshotIcon.height = 32;
+screenshotIcon.style.display = 'block';
+screenshotIcon.style.margin = 'auto';
+
 var screenshotButton = document.createElement("button");
 screenshotButton.className = "screenshotButton ytp-button";
-screenshotButton.style.width = "auto";
-screenshotButton.innerHTML = "Screenshot";
+screenshotButton.appendChild(screenshotIcon);
 screenshotButton.style.cssFloat = "left";
 screenshotButton.onclick = CaptureScreenshot;
 
