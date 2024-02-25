@@ -6,6 +6,7 @@ var playbackSpeedButtons = false;
 var screenshotFunctionality = 0;
 var screenshotFormat = "png";
 var extension = 'png';
+var iconSvgPath = chrome.runtime.getURL('camera.svg');
 
 function CaptureScreenshot() {
 
@@ -23,7 +24,7 @@ function CaptureScreenshot() {
 			return false;
 		}
 	}
-	
+
 	if (SetTitle() == false) {
 		headerEls = document.querySelectorAll("h1.watch-title-container");
 
@@ -128,7 +129,7 @@ function AddScreenshotButton() {
 var screenshotButton = document.createElement("button");
 screenshotButton.className = "screenshotButton ytp-button";
 screenshotButton.style.width = "auto";
-screenshotButton.innerHTML = "Screenshot";
+screenshotButton.innerHTML = '<img src="' + iconSvgPath + '" width="32" height="48"/>';
 screenshotButton.style.cssFloat = "left";
 screenshotButton.onclick = CaptureScreenshot;
 
