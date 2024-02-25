@@ -131,6 +131,7 @@ screenshotIcon.src = iconSvgPath;
 screenshotIcon.width = 36;
 screenshotIcon.height = 36;
 screenshotIcon.style.display = 'block';
+screenshotIcon.style.margin = 'auto';
 
 var screenshotButton = document.createElement("button");
 screenshotButton.className = "screenshotButton ytp-button";
