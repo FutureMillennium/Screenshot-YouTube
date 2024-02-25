@@ -1,5 +1,5 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"name": "Screenshot YouTube",
 	"version": "2.4.1",
 
@@ -13,9 +13,9 @@
 	"options_page": "options.html",
 
 	"background": {
-		"scripts": ["background.js"]
+		"service_worker": "background.js"
 	},
-	
+
 	"content_scripts": [
 		{
 			"matches": ["https://www.youtube.com/*"],
@@ -26,8 +26,12 @@
 	],
 
 	"permissions": [
-		"https://www.youtube.com/*",
 		"webNavigation",
 		"storage"
+	],
+
+	"host_permissions": [
+		"https://www.youtube.com/*"
 	]
+
 }
