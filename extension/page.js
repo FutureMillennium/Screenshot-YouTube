@@ -126,10 +126,15 @@ function AddScreenshotButton() {
 	});
 }
 
+var screenshotIcon = document.createElement("img");
+screenshotIcon.src = iconSvgPath;
+screenshotIcon.width = 36;
+screenshotIcon.height = 36;
+screenshotIcon.style.display = 'block';
+
 var screenshotButton = document.createElement("button");
 screenshotButton.className = "screenshotButton ytp-button";
-screenshotButton.style.width = "auto";
-screenshotButton.innerHTML = '<img src="' + iconSvgPath + '" width="32" height="48"/>';
+screenshotButton.appendChild(screenshotIcon);
 screenshotButton.style.cssFloat = "left";
 screenshotButton.onclick = CaptureScreenshot;
 
