@@ -128,8 +128,8 @@ function AddScreenshotButton() {
 
 var screenshotIcon = document.createElement("img");
 screenshotIcon.src = iconSvgPath;
-screenshotIcon.width = 36;
-screenshotIcon.height = 36;
+screenshotIcon.width = 32;
+screenshotIcon.height = 32;
 screenshotIcon.style.display = 'block';
 screenshotIcon.style.margin = 'auto';
 
