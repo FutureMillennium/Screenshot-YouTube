@@ -22,7 +22,6 @@
     ],
 
     "permissions": [
-        "storage",
-        "scripting"
+        "storage"
     ]
 }
