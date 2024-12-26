@@ -6,6 +6,7 @@ var playbackSpeedButtons = false;
 var screenshotFunctionality = 0;
 var screenshotFormat = "png";
 var extension = 'png';
+var isAppended = false;
 
 function CaptureScreenshot() {
 
@@ -90,9 +91,13 @@ function CaptureScreenshot() {
 
 function AddScreenshotButton() {
 	var ytpRightControls = document.getElementsByClassName("ytp-right-controls")[0];
-	if (ytpRightControls) {
-		ytpRightControls.prepend(screenshotButton);
+	if (!ytpRightControls) {
+		isAppended = false;
+		return;
 	}
+
+	ytpRightControls.prepend(screenshotButton);
+	isAppended = true;
 
 	chrome.storage.sync.get('playbackSpeedButtons', function(result) {
 		if (result.playbackSpeedButtons) {
@@ -196,7 +201,7 @@ chrome.storage.sync.get(['screenshotKey', 'playbackSpeedButtons', 'screenshotFun
 	if (result.screenshotFunctionality === undefined) {
 		screenshotFunctionality = 0;
 	} else {
-    	screenshotFunctionality = result.screenshotFunctionality;
+		screenshotFunctionality = result.screenshotFunctionality;
 	}
 
 	if (screenshotFormat === 'jpeg') {
@@ -243,3 +248,26 @@ document.addEventListener('keydown', function(e) {
 });
 
 AddScreenshotButton();
+
+function onDomChange(mutationsList, observer) {
+	let run = false;
+	for (let mutation of mutationsList) {
+		if (mutation.type === 'childList') {
+			run = true;
+		}
+	}
+
+	if (run) {
+		let ytpRightControls = document.getElementsByClassName("ytp-right-controls")[0];
+		if (ytpRightControls && isAppended === false) {
+			AddScreenshotButton();
+		}
+	}
+}
+
+const observer = new MutationObserver(onDomChange);
+
+observer.observe(document.body, {
+	childList: true,
+	subtree: true
+});
